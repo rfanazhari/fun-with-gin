@@ -6,15 +6,21 @@ import (
 	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"os"
+	"strings"
 )
 
 func main() {
 	r := gin.Default()
 
 	r.ForwardedByClientIP = true
-	err := r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
-	if err != nil {
-		panic(err)
+	if os.Getenv("PROXY_URL") != "" {
+		proxyArray := strings.Split(os.Getenv("PROXY_URL"), ";")
+		if len(proxyArray) > 0 {
+			err := r.SetTrustedProxies(proxyArray)
+			if err != nil {
+				panic(err)
+			}
+		}
 	}
 
 	r.Use(utils.LoggerMiddleware())
