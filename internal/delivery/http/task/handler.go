@@ -4,6 +4,7 @@ import (
 	"context"
 	"fun-with-gin/domain/usecase"
 	usecase_task "fun-with-gin/internal/usecase/task"
+	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +19,8 @@ func NewTaskHandler(route *gin.Engine) {
 	handler := &taskInterActor{
 		userUC: userUseCase,
 	}
+
+	route.Use(utils.JwtMiddleware())
 
 	userRoutes := route.Group("/tasks")
 	{
