@@ -1,4 +1,4 @@
-package user_http
+package task_http
 
 import (
 	"context"
@@ -7,23 +7,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type userInterActor struct {
+type taskInterActor struct {
 	userUC usecase.UserUseCase
 }
 
-func NewUserHandler(route *gin.Engine) {
+func NewTaskHandler(route *gin.Engine) {
 	ctx := context.TODO()
 
 	userUseCase := usecase_user.NewUseCaseUser(ctx)
-	handler := &userInterActor{
+	handler := &taskInterActor{
 		userUC: userUseCase,
 	}
 
-	userRoutes := route.Group("/users")
+	userRoutes := route.Group("/tasks")
 	{
-		userRoutes.POST("/create", handler.CreateUser)
+		userRoutes.POST("/create", handler.CreateTask)
 		userRoutes.GET("/:id", handler.FindById)
-		userRoutes.PUT("/:id", handler.UpdateUser)
-		userRoutes.GET("", handler.ListUsers)
+		userRoutes.PUT("/:id", handler.UpdateTask)
+		userRoutes.GET("", handler.ListTasks)
 	}
 }

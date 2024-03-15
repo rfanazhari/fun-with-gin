@@ -1,9 +1,11 @@
 package main
 
 import (
+	task_http "fun-with-gin/internal/delivery/http/task"
 	user_http "fun-with-gin/internal/delivery/http/user"
 	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 func main() {
@@ -18,8 +20,9 @@ func main() {
 	r.Use(utils.LoggerMiddleware())
 
 	user_http.NewUserHandler(r)
+	task_http.NewTaskHandler(r)
 
-	if err := r.Run(":8080"); err != nil {
+	if err := r.Run(os.Getenv("APP_PORT")); err != nil {
 		panic(err)
 	}
 }
