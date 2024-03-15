@@ -17,6 +17,7 @@ import (
 func main() {
 
 	dbConf := config.DatabasePGSQL()
+	fmt.Println(dbConf)
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbConf.Host, dbConf.Port, dbConf.UserName, dbConf.Password, dbConf.Database)
 
 	fmt.Println(connStr)
@@ -27,6 +28,7 @@ func main() {
 	}
 	defer pgDb.Close()
 
+	fmt.Println("success connect")
 	err = pgDb.Ping()
 	if err != nil {
 		panic(err)
@@ -61,7 +63,7 @@ func main() {
 
 	fmt.Println("success migrate")
 
-	needSeeder := utils.DefaultValueBool("NEED_MIGRATION", false)
+	needSeeder := utils.DefaultValueBool("NEED_SEEDER", false)
 
 	password, _ := utils.HashPassword("whosyourdaddy")
 	if needSeeder {
@@ -73,14 +75,15 @@ func main() {
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
 		}
-
-		stmt, err := pgDb.Prepare(fmt.Sprintf("INSERT INTO %s (id, name, email, password, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)", firstUser.TableName()))
+		strStmt := fmt.Sprintf("INSERT INTO %s.%s (id, name, email, password, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)", dbConf.Schema, firstUser.TableName())
+		fmt.Println(strStmt)
+		stmt, err := pgDb.Prepare(strStmt)
 		if err != nil {
 			panic(err)
 		}
 		defer stmt.Close()
 
-		_, errInsert := stmt.Exec(firstUser)
+		_, errInsert := stmt.Exec(firstUser.ID, firstUser.Name, firstUser.Email, firstUser.Password, firstUser.CreatedAt, firstUser.UpdatedAt)
 		if errInsert != nil {
 			panic(errInsert)
 		}

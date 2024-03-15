@@ -1,16 +1,18 @@
 #!/bin/bash
 
-export DB_SCHEMA=your_schema
-export DB_USERNAME=your_username
-export DB_PASSWORD=your_password
-export DB_NAME=your_database
-export DB_HOST=your_host
-export DB_PORT=your_port
-export DB_TIMEZONE=your_timezone
-export DB_MAX_CON_IDLE=your_max_con_idle
-export DB_MAX_CON_OPEN=your_max_con_open
-export DEBUG=your_debug_value
-export APP_TIMEOUT=your_app_timeout
+export DB_SCHEMA="apps"
+export DB_USERNAME="fan"
+export DB_PASSWORD="lupa_password"
+export DB_NAME="gin_go"
+export DB_HOST="localhost"
+export DB_PORT=5432
+export DB_TIMEZONE="Asia/Jakarta"
+export DB_MAX_CON_IDLE=5
+export DB_MAX_CON_OPEN=5
+export DEBUG="true"
+export APP_TIMEOUT=10
+export NEED_SEEDER="true"
+export MIGRATION_DIR="../../migrations/pgsql"
 
 cd cmd/migration || exit
 go run main.go

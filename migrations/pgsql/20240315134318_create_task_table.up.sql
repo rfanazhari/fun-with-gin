@@ -1,9 +1,10 @@
 CREATE TABLE tasks (
-   id SERIAL PRIMARY KEY,
-   user_id INTEGER REFERENCES users(id),
-   title VARCHAR(255),
-   description TEXT,
-   status VARCHAR(50) DEFAULT 'pending',
-   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+       id INTEGER,
+       user_id INTEGER,
+       title VARCHAR(255),
+       description TEXT DEFAULT  NULL,
+       status VARCHAR(50) DEFAULT 'pending',
+       created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+       updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+       PRIMARY KEY (id)
 );
