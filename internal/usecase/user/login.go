@@ -7,7 +7,7 @@ import (
 	"fun-with-gin/pkg/utils"
 )
 
-func (u *userUseCaseInit) LoginUser(ctx context.Context, email, password string) (string, error) {
+func (u userUseCaseInit) LoginUser(ctx context.Context, email, password string) (string, error) {
 	user, err := u.userRepo.FindOneUser(ctx, &entity.UserFilter{Email: &email})
 	if err != nil {
 		return "", err

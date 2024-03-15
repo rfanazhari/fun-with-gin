@@ -15,3 +15,12 @@ func ToDomainUser(m *models.User) *entity.User {
 		UpdatedAt: m.UpdatedAt,
 	}
 }
+
+func ToListDomainUser(m []*models.User) []*entity.User {
+	var users []*entity.User
+	for _, u := range m {
+		users = append(users, ToDomainUser(u))
+	}
+
+	return users
+}

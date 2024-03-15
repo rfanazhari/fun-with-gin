@@ -5,6 +5,7 @@ import (
 	"fun-with-gin/domain/repository"
 	"fun-with-gin/domain/usecase"
 	usecase_user "fun-with-gin/internal/usecase/user"
+	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +23,7 @@ func NewUserHandler(route *gin.Engine, userRepo repository.UserRepository) {
 
 	route.POST("/login", handler.Login)
 
+	route.Use(utils.JwtMiddleware())
 	userRoutes := route.Group("/users")
 	{
 		userRoutes.POST("/create", handler.CreateUser)

@@ -5,7 +5,10 @@ import (
 	"fun-with-gin/domain/entity"
 )
 
-func (u userUseCaseInit) ListUser(ctx context.Context, filter *entity.UserFilter) ([]*entity.User, error) {
-	//TODO implement me
-	panic("implement me")
+func (u userUseCaseInit) ListUser(ctx context.Context) ([]*entity.User, error) {
+	users, err := u.userRepo.FindList(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
 }
