@@ -7,26 +7,28 @@ import (
 	"net/http"
 )
 
+var validate *validator2.Validate
+
 func (h *userInterActor) Login(c *gin.Context) {
 	ctx := c.Request.Context()
 	var payload requests.LoginRequest
-	var validator validator2.Validate
+	validate = validator2.New(validator2.WithRequiredStructEnabled())
 
 	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := validator.Struct(payload); err != nil {
+	if err := validate.Struct(payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err := h.userUC.CreateOne(ctx, nil)
+	token, err := h.userUC.LoginUser(ctx, payload.Email, payload.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User created successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "Login successfully", "token": token})
 }

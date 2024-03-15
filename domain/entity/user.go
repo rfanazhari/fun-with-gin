@@ -15,8 +15,8 @@ type User struct {
 }
 
 type UserFilter struct {
-	ID    uint
-	Email string
+	ID    *uint
+	Email *string
 }
 
 type UserDto struct {

@@ -3,18 +3,18 @@ package task_http
 import (
 	"context"
 	"fun-with-gin/domain/usecase"
-	usecase_user "fun-with-gin/internal/usecase/user"
+	usecase_task "fun-with-gin/internal/usecase/task"
 	"github.com/gin-gonic/gin"
 )
 
 type taskInterActor struct {
-	userUC usecase.UserUseCase
+	userUC usecase.TaskUseCase
 }
 
 func NewTaskHandler(route *gin.Engine) {
 	ctx := context.TODO()
 
-	userUseCase := usecase_user.NewUseCaseUser(ctx)
+	userUseCase := usecase_task.NewUseCaseTask(ctx)
 	handler := &taskInterActor{
 		userUC: userUseCase,
 	}

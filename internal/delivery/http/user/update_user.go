@@ -16,7 +16,7 @@ func (h *userInterActor) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	filter := &entity.UserFilter{ID: userId}
+	filter := &entity.UserFilter{ID: &userId}
 	user, err := h.userUC.FindOne(ctx, filter)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

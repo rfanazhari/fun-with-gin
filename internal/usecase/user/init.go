@@ -11,6 +11,9 @@ type userUseCaseInit struct {
 	userRepo repository.UserRepository
 }
 
-func NewUseCaseUser(ctx context.Context) usecase.UserUseCase {
-	return &userUseCaseInit{ctx: ctx}
+func NewUseCaseUser(ctx context.Context, userRepo repository.UserRepository) usecase.UserUseCase {
+	return &userUseCaseInit{
+		ctx:      ctx,
+		userRepo: userRepo,
+	}
 }

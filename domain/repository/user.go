@@ -6,5 +6,5 @@ import (
 )
 
 type UserRepository interface {
-	FindOne(ctx context.Context, filter *entity.UserFilter) (*entity.User, error)
+	FindOneUser(ctx context.Context, filter *entity.UserFilter) (*entity.User, error)
 }

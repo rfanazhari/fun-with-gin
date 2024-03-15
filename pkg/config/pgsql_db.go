@@ -66,6 +66,7 @@ func NewConnectionPGSQL() (*gorm.DB, error) {
 		"port=" + cfg.Port,
 		"TimeZone=" + cfg.TimeZone,
 		"sslmode=disable",
+		"search_path=" + cfg.Schema,
 	}
 	dsn := strings.Join(configs, " ")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: newLogger})

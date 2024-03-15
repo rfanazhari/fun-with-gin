@@ -2,20 +2,20 @@ package usecase_user
 
 import (
 	"context"
+	"errors"
 	"fun-with-gin/domain/entity"
 	"fun-with-gin/pkg/utils"
-	"golang.org/x/crypto/bcrypt"
 )
 
-func (u userUseCaseInit) LoginUser(ctx context.Context, email, password string) (string, error) {
-	user, err := u.userRepo.FindOne(ctx, &entity.UserFilter{Email: email})
+func (u *userUseCaseInit) LoginUser(ctx context.Context, email, password string) (string, error) {
+	user, err := u.userRepo.FindOneUser(ctx, &entity.UserFilter{Email: &email})
 	if err != nil {
 		return "", err
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-	if err != nil {
-		return "", err
+	validPassword := utils.ValidatePassword(user.Password, password)
+	if !validPassword {
+		return "", errors.New("invalid password")
 	}
 
 	token, err := utils.GenerateToken(utils.JwtPayload{

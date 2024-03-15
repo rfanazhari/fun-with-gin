@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	JWT_SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
-	JWT_DURATION   = os.Getenv("JWT_DURATION")
+	JwtSecretKey = []byte(os.Getenv("JWT_SECRET_KEY"))
+	JwtDuration  = os.Getenv("JWT_DURATION")
 )
 
 type JwtPayload struct {
@@ -18,8 +18,7 @@ type JwtPayload struct {
 }
 
 func GenerateToken(payload JwtPayload) (string, error) {
-	jwtDurationString := os.Getenv("JWT_DURATION")
-	jwtDuration, err := time.ParseDuration(jwtDurationString)
+	jwtDuration, err := time.ParseDuration(JwtDuration)
 	if err != nil {
 		panic("Invalid JWT_DURATION value")
 	}
@@ -30,7 +29,7 @@ func GenerateToken(payload JwtPayload) (string, error) {
 		"email": payload.Email,
 		"exp":   time.Now().Add(jwtDuration).Unix(), // Token expires in 24 hours
 	})
-	tokenString, err := token.SignedString(JWT_SECRET_KEY)
+	tokenString, err := token.SignedString(JwtSecretKey)
 	if err != nil {
 		return "", err
 	}
