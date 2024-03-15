@@ -10,6 +10,7 @@ func ToDomainUser(m *models.User) *entity.User {
 		ID:        m.ID,
 		Name:      m.Name,
 		Email:     m.Email,
+		Password:  m.Password,
 		CreatedAt: m.CreatedAt,
 		UpdatedAt: m.UpdatedAt,
 	}
