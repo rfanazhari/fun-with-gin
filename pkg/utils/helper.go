@@ -3,10 +3,84 @@ package utils
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"math/rand"
+	"os"
 	"strconv"
 	"time"
 )
+
+func ConvertInt(env string) int {
+	v, _ := strconv.Atoi(os.Getenv(env))
+	return v
+}
+
+func convertFloat(env string) float32 {
+	v, _ := strconv.ParseFloat(os.Getenv(env), 32)
+	return float32(v)
+}
+
+func ConvertEnvInt(key string) int {
+	v, err := strconv.Atoi(key)
+	if err != nil || key == "" {
+		return 0
+	}
+	return v
+}
+
+func ConvertBool(env string) bool {
+	v, _ := strconv.ParseBool(os.Getenv(env))
+	return v
+}
+
+func DefaultValue(env string, defaultValue string) string {
+	val := os.Getenv(env)
+	if val == "" {
+		return defaultValue
+	}
+	return val
+}
+
+func DefaultValueInt(env string, defaultValue int) int {
+	val := ConvertInt(env)
+	if val == 0 {
+		return defaultValue
+	}
+	return val
+}
+
+func DefaultValueDuration(env string, defaultValue string) time.Duration {
+	value := os.Getenv(env)
+	if value == "" {
+		value = defaultValue
+	}
+
+	d, err := time.ParseDuration(value)
+	if err != nil {
+		panic(err)
+	}
+	return d
+}
+
+func DefaultValueFloat(env string, defaultValue float32) float32 {
+	val := convertFloat(env)
+	if val == 0 {
+		return defaultValue
+	}
+	return val
+}
+
+func DefaultValueBool(env string, defaultValue bool) bool {
+	val, err := strconv.ParseBool(os.Getenv(env))
+	if err != nil {
+		val = false
+	}
+
+	if val == false {
+		return defaultValue
+	}
+	return val
+}
 
 func GenerateID() uint64 {
 	randomNumber := rand.Intn(900000) + 100000
@@ -37,4 +111,17 @@ func LoggerMiddleware() gin.HandlerFunc {
 
 		fmt.Printf("Duration: %v\n", time.Since(start))
 	}
+}
+
+func HashPassword(password string) (string, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hashedPassword), nil
+}
+
+func ValidatePassword(hashedPassword, password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+	return err == nil
 }
