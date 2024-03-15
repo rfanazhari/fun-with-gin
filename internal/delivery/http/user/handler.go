@@ -19,6 +19,8 @@ func NewUserHandler(route *gin.Engine) {
 		userUC: userUseCase,
 	}
 
+	route.POST("/login", handler.Login)
+
 	userRoutes := route.Group("/users")
 	{
 		userRoutes.POST("/create", handler.CreateUser)

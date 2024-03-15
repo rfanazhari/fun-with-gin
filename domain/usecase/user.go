@@ -10,4 +10,5 @@ type UserUseCase interface {
 	FindOne(ctx context.Context, filter *entity.UserFilter) (*entity.User, error)
 	UpdateOne(ctx context.Context, payload *entity.User, filter *entity.UserFilter) error
 	ListUser(ctx context.Context, filter *entity.UserFilter) ([]*entity.User, error)
+	LoginUser(ctx context.Context, email, password string) (string, error)
 }
