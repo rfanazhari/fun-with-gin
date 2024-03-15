@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"fmt"
 	"fun-with-gin/pkg/utils"
 	"time"
 )
@@ -27,6 +28,7 @@ type UserDto struct {
 
 func NewUser(payload UserDto) *User {
 	id := utils.GenerateID()
+	fmt.Println("id: ", id)
 	user := &User{
 		ID:        uint(id),
 		Name:      payload.Name,

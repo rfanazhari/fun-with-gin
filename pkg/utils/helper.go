@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -82,15 +81,8 @@ func DefaultValueBool(env string, defaultValue bool) bool {
 	return val
 }
 
-func GenerateID() uint64 {
-	randomNumber := rand.Intn(900000) + 100000
-	currentTime := time.Now().UnixNano()
-	randomID := fmt.Sprintf("%d%d", randomNumber, currentTime)
-
-	var randomIDUint uint64
-	fmt.Sscanf(randomID, "%d", &randomIDUint)
-
-	return randomIDUint
+func GenerateID() int64 {
+	return time.Now().Unix()
 }
 
 func StringToUint(s string) (uint, error) {

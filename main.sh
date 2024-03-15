@@ -15,7 +15,7 @@ export APP_TIMEOUT=10
 export APP_PORT=:3001
 export PROXY_URL="127.0.0.1;::1"
 export JWT_SECRET_KEY=whosyourdaddy
-export JWT_DURATION=5m
+export JWT_DURATION=1h
 
 # Run the Go program
 go run cmd/main.go
