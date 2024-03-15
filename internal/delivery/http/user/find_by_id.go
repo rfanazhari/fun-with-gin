@@ -2,6 +2,7 @@ package user_http
 
 import (
 	"fun-with-gin/domain/entity"
+	"fun-with-gin/internal/delivery/http/responses"
 	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -23,5 +24,5 @@ func (h *userInterActor) FindById(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Success", "data": user})
+	c.JSON(http.StatusOK, gin.H{"message": "Success", "data": responses.ToUserResponses(user)})
 }

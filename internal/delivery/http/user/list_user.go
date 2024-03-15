@@ -1,6 +1,7 @@
 package user_http
 
 import (
+	"fun-with-gin/internal/delivery/http/responses"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -14,5 +15,5 @@ func (h *userInterActor) ListUsers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Success", "data": users})
+	c.JSON(http.StatusOK, gin.H{"message": "Success", "data": responses.ToListUserResponses(users)})
 }
