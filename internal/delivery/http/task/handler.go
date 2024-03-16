@@ -6,18 +6,21 @@ import (
 	usecase_task "fun-with-gin/internal/usecase/task"
 	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
+	validator2 "github.com/go-playground/validator/v10"
 )
 
 type taskInterActor struct {
-	userUC usecase.TaskUseCase
+	taskUC usecase.TaskUseCase
 }
+
+var validate *validator2.Validate
 
 func NewTaskHandler(route *gin.Engine) {
 	ctx := context.TODO()
 
 	userUseCase := usecase_task.NewUseCaseTask(ctx)
 	handler := &taskInterActor{
-		userUC: userUseCase,
+		taskUC: userUseCase,
 	}
 
 	route.Use(utils.JwtMiddleware())

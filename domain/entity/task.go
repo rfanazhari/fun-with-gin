@@ -22,6 +22,11 @@ type TaskDto struct {
 	Status      string
 }
 
+type TaskFilter struct {
+	ID     uint
+	UserId uint
+}
+
 func NewTask(payload TaskDto) *Task {
 	id := utils.GenerateID()
 	user := Task{

@@ -7,7 +7,7 @@ import (
 
 func (h *taskInterActor) UpdateTask(c *gin.Context) {
 	ctx := c.Request.Context()
-	err := h.userUC.CreateOne(ctx, nil)
+	err := h.taskUC.CreateOne(ctx, nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

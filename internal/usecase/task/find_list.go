@@ -5,7 +5,7 @@ import (
 	"fun-with-gin/domain/entity"
 )
 
-func (u taskUseCaseInit) ListUser(ctx context.Context, filter *entity.UserFilter) ([]*entity.User, error) {
+func (u taskUseCaseInit) ListTask(ctx context.Context, filter *entity.TaskFilter) ([]*entity.Task, error) {
 	//TODO implement me
 	panic("implement me")
 }

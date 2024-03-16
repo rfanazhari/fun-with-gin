@@ -29,7 +29,7 @@ func GenerateToken(payload JwtPayload) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":    payload.Id,
+		"jti":   payload.Id,
 		"name":  payload.Name,
 		"email": payload.Email,
 		"exp":   time.Now().Add(jwtDuration).Unix(), // Token expires in 24 hours
