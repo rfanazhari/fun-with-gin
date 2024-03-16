@@ -16,3 +16,23 @@ func ToModelTask(d entity.Task) *models.Task {
 		UpdatedAt:   d.UpdatedAt,
 	}
 }
+
+func ToDomainTask(mdl *models.Task) *entity.Task {
+	return &entity.Task{
+		ID:          mdl.ID,
+		UserId:      mdl.UserID,
+		Title:       mdl.Title,
+		Description: mdl.Description,
+		Status:      mdl.Status,
+		CreatedAt:   mdl.CreatedAt,
+		UpdatedAt:   mdl.UpdatedAt,
+	}
+}
+
+func ToListDomainTask(models []*models.Task) []*entity.Task {
+	var tasks []*entity.Task
+	for _, mdl := range models {
+		tasks = append(tasks, ToDomainTask(mdl))
+	}
+	return tasks
+}

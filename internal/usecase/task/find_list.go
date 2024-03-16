@@ -6,6 +6,9 @@ import (
 )
 
 func (u taskUseCaseInit) ListTask(ctx context.Context, filter *entity.TaskFilter) ([]*entity.Task, error) {
-	//TODO implement me
-	panic("implement me")
+	tasks, err := u.taskRepo.FindList(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+	return tasks, nil
 }
