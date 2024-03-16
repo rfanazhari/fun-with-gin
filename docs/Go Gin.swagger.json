@@ -1,0 +1,405 @@
+{
+  "info": {
+    "title": "Go Gin-Gonic",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "task"
+    },
+    {
+      "name": "user"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Login",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/tasks": {
+      "get": {
+        "summary": "Get List Task",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "task"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTc5OTA4LCJqdGkiOjEsIm5hbWUiOiJmYW4ifQ.C_MycYF7wOZlFd4EFyGzTnkFkmAOW2_VzpoWVku4uIw"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get List User",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTM2MTM1LCJpZCI6MSwibmFtZSI6ImZhbiJ9.F9fqPxxt2M-_c4PwG_C1WXXm-6AZJ_Dejbh57IZ65Bs"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        "security": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "summary": "Get Task",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "task"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "1710575293"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTgyMjk5LCJqdGkiOjEsIm5hbWUiOiJmYW4ifQ.HwIv9SwP1xc4CUiEGvgqmNCTg8JKI4xbVajw2hKoENY"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "put": {
+        "summary": "Update Task",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "task"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "1710575293"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTg2MjMwLCJqdGkiOjEsIm5hbWUiOiJmYW4ifQ.n-4EOGW4T4k9KA4Cq9iy9uX8ms9evqvpjyVh6cpThDc"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/users/create": {
+      "post": {
+        "summary": "create new user",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTM2MTM1LCJpZCI6MSwibmFtZSI6ImZhbiJ9.F9fqPxxt2M-_c4PwG_C1WXXm-6AZJ_Dejbh57IZ65Bs"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/tasks/create": {
+      "post": {
+        "summary": "Create New Task",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "task"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTc2ODk0LCJqdGkiOjEsIm5hbWUiOiJmYW4ifQ.qW90uccpbMA4k701kKw4W9bI1oPgm7BKwdWzuvFFp4k"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "summary": "update user",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "1710533435"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTQxOTE2LCJpZCI6MSwibmFtZSI6ImZhbiJ9.QkpKrPWAw6Jsf0q1_eTbvEHaggpRdqP5qaCCGeXcsQk"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "summary": "Get User",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "1710533435"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJmYW5hemhhcmlAZ21haWwuY29tIiwiZXhwIjoxNzEwNTM2MTM1LCJpZCI6MSwibmFtZSI6ImZhbiJ9.F9fqPxxt2M-_c4PwG_C1WXXm-6AZJ_Dejbh57IZ65Bs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0",
+  "definitions": {},
+  "securityDefinitions": {},
+  "x-components": {}
+}
