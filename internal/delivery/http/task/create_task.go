@@ -44,5 +44,5 @@ func (h *taskInterActor) CreateTask(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User created successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "Task created successfully"})
 }

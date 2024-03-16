@@ -1,16 +1,16 @@
 package usecase_task
 
 import (
-	"context"
+	"fun-with-gin/domain/repository"
 	"fun-with-gin/domain/usecase"
 )
 
 type taskUseCaseInit struct {
-	ctx context.Context
+	taskRepo repository.TaskRepository
 }
 
-func NewUseCaseTask(ctx context.Context) usecase.TaskUseCase {
+func NewUseCaseTask(taskRepo repository.TaskRepository) usecase.TaskUseCase {
 	return &taskUseCaseInit{
-		ctx: ctx,
+		taskRepo: taskRepo,
 	}
 }

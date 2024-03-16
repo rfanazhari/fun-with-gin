@@ -3,6 +3,7 @@ package main
 import (
 	task_http "fun-with-gin/internal/delivery/http/task"
 	user_http "fun-with-gin/internal/delivery/http/user"
+	pgsql_task "fun-with-gin/internal/repository/pgsql/task"
 	pgsql_user "fun-with-gin/internal/repository/pgsql/user"
 	"fun-with-gin/pkg/config"
 	"fun-with-gin/pkg/utils"
@@ -16,7 +17,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	userRepo := pgsql_user.NewUserPgsqlInit(db)
+	taskRepo := pgsql_task.NewTaskPgsqlInit(db)
+
 	r := gin.Default()
 
 	r.ForwardedByClientIP = true
@@ -33,7 +37,7 @@ func main() {
 	r.Use(utils.LoggerMiddleware())
 
 	user_http.NewUserHandler(r, userRepo)
-	task_http.NewTaskHandler(r)
+	task_http.NewTaskHandler(r, taskRepo)
 
 	if err := r.Run(os.Getenv("APP_PORT")); err != nil {
 		panic(err)

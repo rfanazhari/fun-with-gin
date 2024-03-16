@@ -1,7 +1,7 @@
 package task_http
 
 import (
-	"context"
+	"fun-with-gin/domain/repository"
 	"fun-with-gin/domain/usecase"
 	usecase_task "fun-with-gin/internal/usecase/task"
 	"fun-with-gin/pkg/utils"
@@ -15,10 +15,8 @@ type taskInterActor struct {
 
 var validate *validator2.Validate
 
-func NewTaskHandler(route *gin.Engine) {
-	ctx := context.TODO()
-
-	userUseCase := usecase_task.NewUseCaseTask(ctx)
+func NewTaskHandler(route *gin.Engine, taskRepo repository.TaskRepository) {
+	userUseCase := usecase_task.NewUseCaseTask(taskRepo)
 	handler := &taskInterActor{
 		taskUC: userUseCase,
 	}

@@ -35,8 +35,8 @@ func NewTask(payload TaskDto) *Task {
 		Title:       payload.Title,
 		Description: payload.Description,
 		Status:      payload.Status,
-		CreatedAt:   time.Time{},
-		UpdatedAt:   time.Time{},
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 
 	return &user
