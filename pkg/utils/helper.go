@@ -14,38 +14,9 @@ func ConvertInt(env string) int {
 	return v
 }
 
-func convertFloat(env string) float32 {
-	v, _ := strconv.ParseFloat(os.Getenv(env), 32)
-	return float32(v)
-}
-
-func ConvertEnvInt(key string) int {
-	v, err := strconv.Atoi(key)
-	if err != nil || key == "" {
-		return 0
-	}
-	return v
-}
-
 func ConvertBool(env string) bool {
 	v, _ := strconv.ParseBool(os.Getenv(env))
 	return v
-}
-
-func DefaultValue(env string, defaultValue string) string {
-	val := os.Getenv(env)
-	if val == "" {
-		return defaultValue
-	}
-	return val
-}
-
-func DefaultValueInt(env string, defaultValue int) int {
-	val := ConvertInt(env)
-	if val == 0 {
-		return defaultValue
-	}
-	return val
 }
 
 func DefaultValueDuration(env string, defaultValue string) time.Duration {
@@ -59,14 +30,6 @@ func DefaultValueDuration(env string, defaultValue string) time.Duration {
 		panic(err)
 	}
 	return d
-}
-
-func DefaultValueFloat(env string, defaultValue float32) float32 {
-	val := convertFloat(env)
-	if val == 0 {
-		return defaultValue
-	}
-	return val
 }
 
 func DefaultValueBool(env string, defaultValue bool) bool {
@@ -116,4 +79,8 @@ func HashPassword(password string) (string, error) {
 func ValidatePassword(hashedPassword, password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 	return err == nil
+}
+
+func UintToString(i uint) string {
+	return strconv.FormatUint(uint64(i), 10)
 }

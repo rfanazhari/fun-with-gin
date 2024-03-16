@@ -3,7 +3,6 @@ package usecase_user
 import (
 	"context"
 	"errors"
-	"fmt"
 	"fun-with-gin/domain/entity"
 )
 
@@ -15,7 +14,7 @@ func (u userUseCaseInit) CreateOne(ctx context.Context, payload *entity.User) er
 	if user != nil {
 		return errors.New("user already exists")
 	}
-	fmt.Println(payload)
+
 	insert := u.userRepo.InsertUser(ctx, *payload)
 	if insert != nil {
 		return insert

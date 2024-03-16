@@ -3,6 +3,7 @@ package user_http
 import (
 	"fun-with-gin/domain/entity"
 	"fun-with-gin/internal/delivery/http/requests"
+	"fun-with-gin/pkg/common"
 	"fun-with-gin/pkg/utils"
 	"github.com/gin-gonic/gin"
 	validator2 "github.com/go-playground/validator/v10"
@@ -12,9 +13,22 @@ import (
 func (h *userInterActor) UpdateUser(c *gin.Context) {
 	ctx := c.Request.Context()
 
+	userMeta, err := common.GetMetaHttpToken(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		c.Abort()
+		return
+	}
+
 	userId, err := utils.StringToUint(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if userMeta.Id != userId {
+		c.JSON(http.StatusForbidden, gin.H{"error": "You are not authorized to update this user"})
+		c.Abort()
 		return
 	}
 

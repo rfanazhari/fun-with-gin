@@ -10,6 +10,7 @@ This project has the following prerequisites:
 - [JWT](https://jwt.io/) for token generation
 - [Migrate](https://github.com/golang-migrate/migrate) as the engine for database migration
 - [Gin Gonic](https://github.com/gin-gonic/gin) for REST HTTP
+- [Redis](https://github.com/redis/go-redis) for storing session login tokens
 
 ## Installation
 

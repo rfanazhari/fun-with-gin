@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"fun-with-gin/domain/service"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -22,24 +24,26 @@ type JwtPayload struct {
 	ExpiresAt int64  `json:"exp,omitempty"`
 }
 
-func GenerateToken(payload JwtPayload) (string, error) {
+func GenerateToken(payload JwtPayload) (string, time.Duration, error) {
 	jwtDuration, err := time.ParseDuration(JwtDuration)
 	if err != nil {
 		panic("Invalid JWT_DURATION value")
 	}
 
+	exp := time.Now().Add(jwtDuration)
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"jti":   payload.Id,
 		"name":  payload.Name,
 		"email": payload.Email,
-		"exp":   time.Now().Add(jwtDuration).Unix(), // Token expires in 24 hours
+		"exp":   exp.Unix(), // Token expires in 24 hours
 	})
 	tokenString, err := token.SignedString(JwtSecretKey)
 	if err != nil {
-		return "", err
+		return "", 0, err
 	}
 
-	return tokenString, nil
+	return tokenString, exp.Sub(time.Now()), nil
 }
 
 func (p *JwtPayload) Valid() error {
@@ -61,7 +65,7 @@ func (p *JwtPayload) GetExpiresAt() time.Time {
 	return time.Now().Add(time.Hour)
 }
 
-func JwtMiddleware() gin.HandlerFunc {
+func JwtMiddleware(ctx context.Context, tokenSvc service.LoginTokenService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString := c.GetHeader("Authorization")
 		if tokenString == "" {
@@ -83,6 +87,16 @@ func JwtMiddleware() gin.HandlerFunc {
 		claims, ok := token.Claims.(*JwtPayload)
 		if !ok {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Failed to parse token claims"})
+			return
+		}
+
+		redisToken, err := tokenSvc.GetToken(ctx, UintToString(claims.Id))
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "invalid token login"})
+			return
+		}
+		if redisToken != claims.Email {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "invalid token login"})
 			return
 		}
 

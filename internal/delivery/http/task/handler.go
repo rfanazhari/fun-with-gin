@@ -1,7 +1,9 @@
 package task_http
 
 import (
+	"context"
 	"fun-with-gin/domain/repository"
+	"fun-with-gin/domain/service"
 	"fun-with-gin/domain/usecase"
 	usecase_task "fun-with-gin/internal/usecase/task"
 	"fun-with-gin/pkg/utils"
@@ -15,13 +17,15 @@ type taskInterActor struct {
 
 var validate *validator2.Validate
 
-func NewTaskHandler(route *gin.Engine, taskRepo repository.TaskRepository) {
+func NewTaskHandler(route *gin.Engine, taskRepo repository.TaskRepository, tokenSvc service.LoginTokenService) {
+	ctx := context.TODO()
+
 	userUseCase := usecase_task.NewUseCaseTask(taskRepo)
 	handler := &taskInterActor{
 		taskUC: userUseCase,
 	}
 
-	route.Use(utils.JwtMiddleware())
+	route.Use(utils.JwtMiddleware(ctx, tokenSvc))
 
 	userRoutes := route.Group("/tasks")
 	{

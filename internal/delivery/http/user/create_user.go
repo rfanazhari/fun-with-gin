@@ -1,7 +1,6 @@
 package user_http
 
 import (
-	"fmt"
 	"fun-with-gin/domain/entity"
 	"fun-with-gin/internal/delivery/http/requests"
 	"fun-with-gin/pkg/utils"
@@ -35,7 +34,7 @@ func (h *userInterActor) CreateUser(c *gin.Context) {
 		Email:    payload.Email,
 		Password: password,
 	})
-	fmt.Println("user: ", user)
+
 	err := h.userUC.CreateOne(ctx, user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

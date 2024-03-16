@@ -76,7 +76,7 @@ func main() {
 			UpdatedAt: time.Now(),
 		}
 		strStmt := fmt.Sprintf("INSERT INTO %s.%s (id, name, email, password, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)", dbConf.Schema, firstUser.TableName())
-		fmt.Println(strStmt)
+
 		stmt, err := pgDb.Prepare(strStmt)
 		if err != nil {
 			panic(err)
