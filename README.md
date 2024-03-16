@@ -22,11 +22,11 @@ This project has the following prerequisites:
 #### Migration Database
 
 1. download and install golang-migrate -> https://github.com/golang-migrate/migrate/tree/master/cmd/migrate
-2. migrate up service (e.g., service auth) 
+2. migrate up
    ```bash
-   migrate -source "file://migrations/pgsql" -database "postgres://username:pwd@localhost:5432/your_db?sslmode=disable&search_path=auth" up 
+   migrate -source "file://migrations/pgsql" -database "postgres://username:pwd@localhost:5432/your_db?sslmode=disable&search_path=apps" up 
    ```
-3. create new migration (if needed) (e.g., service auth)
+3. create new migration (if needed)
    ```bash
    migrate create -ext sql -dir migrations/pgsql create_my_table
    ```
