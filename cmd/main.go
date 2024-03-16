@@ -7,6 +7,7 @@ import (
 	pgsql_user "fun-with-gin/internal/repository/pgsql/user"
 	"fun-with-gin/pkg/config"
 	"fun-with-gin/pkg/utils"
+	"fun-with-gin/pkg/validations"
 	"github.com/gin-gonic/gin"
 	"os"
 	"strings"
@@ -22,6 +23,8 @@ func main() {
 	taskRepo := pgsql_task.NewTaskPgsqlInit(db)
 
 	r := gin.Default()
+
+	validations.RegisterBindingValidation()
 
 	r.ForwardedByClientIP = true
 	if os.Getenv("PROXY_URL") != "" {
