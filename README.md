@@ -41,3 +41,14 @@ This project has the following prerequisites:
    ```bash
    sh migration.sh
    ```
+3. using docker-compose
+   ```bash
+   docker-compose up -d
+   ```
+4. if using docker the migration should execute inside the container
+   ```bash
+   docker ps
+   docker exec -it CONTAINER-ID bash
+   cd cmd/migration
+   go run main.go
+   ```
